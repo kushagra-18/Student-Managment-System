@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Student Management System</title>
+<style>
+    .btn {
+  border: none;
+  background-color: #101c28;
+color: white;
+padding: 12px 16px;
+font-size: 30px;
+  cursor: pointer;
+}
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css"> -->
-
-        <!-- Styles -->
-        <style>
-            html, body {
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+ html, body {
                 /* background-color: #fff; */
-                background-image: url("{{asset('uploads/erp.jpg') }}") ;
+     background-image: url("{{asset('uploads/erp.jpg') }}") ;
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 100% 100%;
         display: block;
         positon: relative;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
+        color: #636b6f;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 100;
+        height: 100vh;
+        margin: 0;
             }
 
             .full-height {
@@ -43,7 +51,7 @@
 
             .top-right {
                 position: absolute;
-                right: 10px;
+                right: 50px;
                 top: 18px;
             }
 
@@ -64,7 +72,13 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
-
+            .buttonnn{
+                background-color: black;
+            }
+            .a{
+                font-size: 20px;
+                    font-size: xx-large;
+            }
             .m-b-md {
                 margin-bottom: 30px;
             }
@@ -76,10 +90,15 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
+                        <div>
+                        <a href="{{ url('/newhome') }}" >
+                            <button class="btn"><i class="fa fa-home"></i></button>
+                            <!-- <p>{{ Auth::user()->name }} </p> -->
+                        </div>
+                        <!-- <a href="{{ url('/newhome') }}">Home</a> -->
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
+                        <a href="{{ url('/login') }}"><b style="font-size: xx-large;">Login</b></a>
+                        <!-- <a href="{{ url('/register') }}">Register</a> -->
                     @endif
                 </div>
             @endif

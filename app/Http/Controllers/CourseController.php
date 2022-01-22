@@ -13,9 +13,15 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses=Courses::paginate(2);
+        $courses=Courses::paginate(4);
         return view('Course',['courses'=>$courses,'layout'=>'index']);
     }
+    public function course()
+    {
+        
+        return view('admin.student_course');
+    }
+
     public function indexFull()
     {
         $course=Courses::all();
@@ -24,8 +30,8 @@ class CourseController extends Controller
     }
     public function indexCourse()
     {
-        $course=Courses::all();
-        return view('student.CourseList',['course'=>$course,'layout'=>'index']);
+        $courses=Courses::paginate(2);
+        return view('student.CourseList',['courses'=>$courses]);
     }
 
     /**
@@ -49,7 +55,7 @@ class CourseController extends Controller
     {
         $course=new Courses();
         $course->Cid=$request->input('Cid');
-        $course->CourseName=$request->input('CourseName');
+        $course->name=$request->input('name');
         $course->save();
         return redirect('/home');
     }
@@ -90,7 +96,7 @@ class CourseController extends Controller
     public function update(Request $request, $Cid)
     {
         $course=Courses::find($Cid);
-        $course->CourseName=$request->input('CourseName');
+        $course->name=$request->input('name');
         $course->save();
         return redirect('/home');
     }

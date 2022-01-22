@@ -72,19 +72,13 @@
         margin-top: -42%;
     }
    
-    .image{
-    vertical-align: middle;
-    margin-top: -2.4%;
-    width: 100%;
-    }
     ul.nav2 {
   padding-left: 0px;
-  padding: 1.82%;
+  padding: 2%;
   margin-left: -3%;
   background-color: #37474f;
   text-align: center;
   width: 140%;
-  position: fixed;
   
 }
 ul.nav2 > li {
@@ -144,44 +138,34 @@ ul.nav2 > li > a {
       <a href="#">Student Management system</a>
     </header>
     <ul class="nav">
-      <li>
+      <!-- <li>
         <a href="{{url('/createStudent')}}">
           <i class="zmdi zmdi-view-dashboard"></i> Add New Student
         </a>
-      </li>
+      </li> -->
       <li>
         <a href="{{url('/viewStudent')}}">
           <i class="zmdi zmdi-link"></i> View All students
         </a>
       </li>
-      <li>
+      <!-- <li>
         <a href="{{url('/createTeacher')}}">
           <i class="zmdi zmdi-widgets"></i> Add new Teacher
         </a>
-      </li>
+      </li> -->
       <li>
         <a href="{{url('/viewTeacher')}}">
           <i class="zmdi zmdi-calendar"></i> View all Teacher Details
         </a>
       </li>
-      <li>
+      <!-- <li>
         <a href="{{url('/createCourse')}}">
           <i class="zmdi zmdi-info-outline"></i> Add new Course
         </a>
-      </li>
+      </li> -->
       <li>
         <a href="{{url('/viewCourse')}}">
           <i class="zmdi zmdi-settings"></i> View all Courses Details
-        </a>
-      </li>
-      <li>
-        <a href="{{url('/createAdmin')}}">
-          <i class="zmdi zmdi-comment-more"></i> Add new Admin
-        </a>
-      </li>
-      <li>
-        <a href="{{url('/viewAdmin')}}">
-          <i class="zmdi zmdi-comment-more"></i> View all Admins Details
         </a>
       </li>
     </ul>
@@ -230,8 +214,6 @@ ul.nav2 > li > a {
       <p>
         <!-- Make sure to keep all page content within the 
         <code>#content</code>. -->
-       <div class="image"> <img style="width:100%; vertical-align: middle; padding-top: 10%;
-    margin-top: -2.4%;;" src="uploads/quote.jpg">  </div>
       </p>
     </div>
   </div>

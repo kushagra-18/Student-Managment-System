@@ -6,6 +6,7 @@ use Validator;
 use DB;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class TeacherController extends Controller
 {
@@ -32,8 +33,10 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        $teacher=Teachers::all();
-        return view('Teacher',['teachers'=>$teacher,'layout'=>'create']);
+        $course = DB::table('courses')->pluck("name","Cid");
+        return view('Teacher',compact('course'),['layout'=>'create']);
+        // $teacher=Teachers::all();
+        // return view('Teacher',['teachers'=>$teacher,'layout'=>'create']);
     }
 
     /**
@@ -42,13 +45,16 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeT(Request $request)
+    public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'Tid'=>'required',
-            'email' => 'required|email|unique',
-            'name'=>'required', 
-            'number'=>'required|[789][0-9]{9}'
+
+        $this->validate($request, [
+            'Tid' => 'required',
+            'email' => 'required|email', 
+            'name' => 'required|min:4', 
+            'number' => 'required', 
+            'speciality' => 'required', 
+
         ]);
         $teacher=new Teachers();
         $teacher->Tid=$request->input('Tid');
@@ -56,17 +62,19 @@ class TeacherController extends Controller
         // $teacher->email=$request->input('email');
         $teacher->number=$request->input('number');
         $teacher->designation=$request->input('designation');
+        $teacher->course_id=$request->input('course_id');
         $teacher->speciality=$request->input('speciality');
         $teacher->save();
 
-        $user=new User();
-        $user->id=$request->input('Tid');
-        $user->name=$request->input('name');
-        $user->email=$request->input('email');
-        $user->password = bcrypt('secret');
-        $user->role=2;
-        $user->save();
-        return redirect('/home');
+        $user1=new User();
+        $user1->id=$request->input('Tid');
+        $user1->name=$request->input('name');
+        $user1->email=$request->input('email');
+        $user1->password = bcrypt('secret');
+        $user1->role=2;
+        $user1->save();
+        return view('admin.home')->with('message','Student created successfully');
+        
     }
 
     /**
@@ -90,7 +98,7 @@ class TeacherController extends Controller
     {
         $teacher=Teachers::find($Tid);
         //$students=Student::all();
-        return view('teacher',['teacher'=>$teacher,'layout'=>'edit']);
+        return view('teacherEditDetails',['teacher'=>$teacher,'layout'=>'edit']);
     }
 
     /**

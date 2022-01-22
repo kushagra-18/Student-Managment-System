@@ -10,9 +10,7 @@
     margin-right: 0px !important;
     margin-left: 0px !important;
 }
-.header-container > h2 {
 
-}
 .bg-light {
 
     background: #00c9b7 !important;
@@ -55,9 +53,7 @@ input[type=text]:focus{
     border: none ;
     box-shadow: 0px 4px 5px #ccc ;
 }
-.thead-light {
 
-}
 .table .thead-light th {
     color : #fff !important;
     background: #0b4b45 !important;

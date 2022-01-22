@@ -35,7 +35,7 @@
     </style>
 
   <div class="container"><br><br>
-  @include("search.searchTeacher")
+  @include("teacher.search")
     <h5 class="card-title">List of Teachers</h5>
     <!-- <p class="card-text">All information about Teachers</p> -->
     <table class="table">
@@ -63,7 +63,7 @@
 
                         <a href="{{ url('/editT/'.$teacher->Tid) }}" class="btn btn-sm btn-warning">Edit</a>
                         
-                        <a href="{{ url('/deleteT/'.$teacher->Tid) }}" class="btn btn-sm btn-warning">Delete</a>
+                        <a href="{{ url('/deleteT/'.$teacher->Tid) }}" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-sm btn-warning">Delete</a>
                         <input name="_method" type="hidden" value="DELETE">
                     </td>
 

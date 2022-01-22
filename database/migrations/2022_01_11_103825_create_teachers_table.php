@@ -20,6 +20,7 @@ class CreateTeachersTable extends Migration
             // $table->string('email')->unique();
             $table->biginteger('number', 100)->nullable();
             $table->string('designation');
+            $table->string('course_id');
             $table->string('speciality');
             $table->timestamps();
         });

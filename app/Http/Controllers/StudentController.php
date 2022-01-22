@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Student;
 use Validator;
 use App\User;
+use DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 
@@ -16,12 +18,16 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students=Student::paginate(1);
-        return view('student',['students'=>$students,'layout'=>'index']);
+        $student1 = new Student();
+        $students=$student1->display();
+        return view('student.index',compact('students'));
     }
     public function indexStudent()
     {
-        $students=Student::all();
+        $students = DB::table('students')
+        ->leftJoin('users', 'students.Sid', '=', 'users.id')
+        ->paginate(2);
+        
         return view('student.StudentList',['students'=>$students,'layout'=>'index']);
     }
 
@@ -32,8 +38,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $students=Student::all();
-        return view('student',['students'=>$students,'layout'=>'create']);
+        $course = DB::table('courses')->pluck("name","Cid");
+        return view('student',compact('course'),['layout'=>'create']);
+        
     }
 
     /**
@@ -44,36 +51,22 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {   
-        // $rules = array(
-        //     'name'=>'required',                      
-        //     'email'=>'required'|'email'|'unique:students', 
-        //     'password'=>'required',
-        //     'number'=>'required'|'digits = 10'
-
-        // ); $this->validate($request, [ 'email' => 'required|email',
-        // ]);
-        // $validator = Validator::make($request::all(), $rules);
-        // if ($validator->fails()) {
-
-        //     // get the error messages from the validator
-        //     $messages = $validator->messages();
-    
-        //     // redirect our user back to the form with the errors from the validator
-        //     return Redirect::to('/admin/home')->withErrors($validator);
-        // }
-        // else{
-        $student=new Student();
-        $student->Sid=$request->input('Sid');
-        $student->name=$request->input('name');
-        // $student->email=$request->input('email');
-        $student->number=$request->input('number');
-        $student->birth=$request->input('birth');
-        $student->class=$request->input('class');
-        $student->address=$request->input('address');
-        $student->course=$request->input('course');
-        $student->mentor=$request->input('mentor');
-        $student->save();
-
+        $this->validate($request, [
+            'Sid' => 'required',
+            'email' => 'required|email', 
+            'name' => 'required|min:4', 
+            'number' => 'required', 
+            'address' => 'required',
+            'class' => 'required', 
+            'birth' => 'required',
+            'course_id' => 'required',
+            'mentor' => 'required',
+        ]);
+        
+        $student1 = new Student();
+        $students = $student1->store_data($request);
+        $student_id =Auth::User()->id;
+        error_log($student_id);
         $user=new User();
         $user->id=$request->input('Sid');
         $user->name=$request->input('name');
@@ -81,8 +74,11 @@ class StudentController extends Controller
         $user->password = bcrypt('secret');
         $user->role=1;
         $user->save();
+        $user_id =Auth::User()->id;
+        error_log($user_id);
         //return redirect()->route('admin.home')->with('message','New Student Created Successfull !');
-        return redirect('/admin/home')->with('success','Student created successfully');
+        
+        return view('admin.home')->with('message','Student created successfully');
         
        // return redirect('/admin/home');
         
@@ -146,6 +142,9 @@ class StudentController extends Controller
     {
         $student=Student::find($id);  
         $student->delete();  
+        $user1=User::find($id);  
+        $user1->delete();  
         return redirect('/home');
+        
     }
 }

@@ -34,31 +34,35 @@
 <h5 class="card-title">Update informations of student</h5>
 <form action="{{ url('/updateS/'.$student->Sid) }}" method="post">
 <input name="_method" type="hidden" value="POST">
-
-        <label>Email</label>
-        <input id="fname" type="text" placeholder="Enter the name" value={{$student->email}} readonly>
-
-        <label>Name</label>
+        <div class="box">
+        <label>Name</label><br>
         <input id="fname" name="name" type="text" placeholder="Enter the name" value={{$student->name}} >
-    
-        <label>number</label>
+        </div>
+        <div class="box">
+        <label>Phone Number</label><br>
         <input id="fname" name="number" type="text"  placeholder="Enter the number" value={{$student->number}} >
-
-        <label>Date of Birth</label>
+        </div>
+        <div class="box">
+        <label>Date of Birth</label><br>
         <input id="fname" name="birth" type="text"  placeholder="Enter date of birth" value={{$student->birth}} >
-
-        <label>class</label>
+        </div>
+        <div class="box">
+        <label>Class</label><br>
         <input id="fname" name="class" type="text" placeholder="Enter class" value={{$student->class}} >
-
-        <label>Address</label>
+        </div>
+        <div class="box">
+        <label>Address</label><br>
         <input id="fname" name="address" type="text" placeholder="Enter address" value={{$student->address}}>
-
-        <!-- <label>course</label>
-        <input id="fname" name="course" type="text"  placeholder="Enter course" value={{$student->course}} > -->
-
-        <label>Mentor</label>
+        </div>
+        <div class="box">
+        <label>course</label><br>
+        <input id="fname" name="course" type="text"  placeholder="Enter course" value={{$student->course}} >
+        </div>
+        <div class="box">
+        <label>Mentor</label><br>
         <input id="fname" name="mentor" type="text" placeholder="Enter mentor" value={{$student->mentor}} >
-
+        </div>
+        <div class="box">
     <input class="btnfamily" type="submit" class="btn btn-info" value="Update">
     <input class="btnfamily2" type="reset" class="btn btn-warning" value="Reset">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />

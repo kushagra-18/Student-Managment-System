@@ -17,7 +17,7 @@ class CreateCoursesTable extends Migration
             $table->string('Cid');
            // $table->primary('Cid');
             $table->string('name')->unique();
-           
+            $table->timestamps();
         });
     }
 

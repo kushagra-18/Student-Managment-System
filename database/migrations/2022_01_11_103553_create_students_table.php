@@ -23,7 +23,7 @@ class CreateStudentsTable extends Migration
             $table->string('birth');
             $table->string('class');
             $table->text('address', 100);
-            $table->string('course');
+            $table->string('course_id');
             $table->string('mentor');
             $table->timestamps();
         });

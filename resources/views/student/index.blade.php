@@ -16,7 +16,8 @@
       font-size: xxx-large;
     font-family: -webkit-body;
     background-color: beige;
-    margin-left: 25%;
+    width: 100%;
+    text-align: center;
     }
     .btn-warning {
     color: #fff;
@@ -26,29 +27,30 @@
 .table{
   align-items: center;
 }
+.h5{
+    width: 70%;
+    text-align: -webkit-center;
+
+}
     </style>
-<body>
 
-
-<div class="container">
-  <br><br>
-    <!-- <h5 class="card-title">List of all students</h5> -->
-    <p class="card-title">All information about students</p>
-    <br>
-    <br>
+  <div class="container"><br><br>
+    @include("student.search")
+    <h5 class="card-title">List of Students</h5>
+   
     <table class="table">
   <thead class="thread-lite">
     <tr>
       <th scope="col">Roll Number</th>
       <th scope="col">Name </th>
       <th scope="col">Email Address</th>
-      <!-- <th scope="col">Number</th> -->
+      <th scope="col">Number</th>
       <th scope="col">Date of birth</th>
       <th scope="col">Class</th>
       <th scope="col">Address</th>
       <th scope="col">Course</th>
       <th scope="col">Mentor Assigned</th>
-
+<br><br>
     </tr>
   </thead>
   <tbody>
@@ -57,14 +59,16 @@
                     <td>{{ $student->Sid }}</td>
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->email }}</td>
-                    <!-- <td>{{ $student->number }}</td> -->
+                    <td>{{ $student->number }}</td>
                     <td>{{ $student->birth }}</td>
                     <td>{{ $student->class }}</td>
                     <td>{{ $student->address }}</td>
                     <td>{{ $student->course_id }}</td>
                     <td>{{ $student->mentor }}</td>
                     <td>
-
+                        <a href="{{ url('/edit/'.$student->Sid) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{ url('/deleteS/'.$student->Sid) }}" class="btn btn-sm btn-warning">Delete</a>
+                        <input name="_method" type="hidden" value="DELETE">
                     </td>
 
 
@@ -73,6 +77,6 @@
   </tbody>
 </table>
 
+{{$students->links()}}
+
 </div>
-</body>
-</html>

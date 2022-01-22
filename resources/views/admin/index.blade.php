@@ -46,12 +46,12 @@
 @foreach($admins as $admin)  
         <tr border="none">  
             <td>{{$admin->adminId}}</td>  
-            <td>{{$admin->Name}}</td>  
-            <td>{{$admin->Email}}</td>  
+            <td>{{$admin->name}}</td>  
+            <td>{{$admin->email}}</td>  
             <td>{{$admin->number}}</td>  
-            <td>{{$admin->Address}}</td>
+            <td>{{$admin->address}}</td>
 <td >  
-<a href="{{ url('/editA/'.$admin->adminId) }}" class="btn btn-sm btn-warning">Edit</a>
+<!-- <a href="{{ url('/editA/'.$admin->adminId) }}" class="btn btn-sm btn-warning">Edit</a> -->
 <a href="{{ url('/deleteA/'.$admin->adminId) }}" class="btn btn-sm btn-warning">Delete</a> 
 </td>  
  

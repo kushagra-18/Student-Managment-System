@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{{asset('css/style3.css')}}">
 </head>
 <style>
+    .box{
+        margin-left: 11%;
+    }
     input#fname{
         background-repeat:no-repeat;
         background-position:6px;
@@ -41,16 +44,24 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <input name="_method" type="hidden" value="POST">
    
-            <label>Course's Number</label>
+            <div class="box" ><label>Course's Number</label><br>
             <input id="fname" name="Cid" type="text" class="form-control"  placeholder="Enter id">
-        
-            <label>Course Name</label>
-            <input id="fname" name="CourseName" type="text" class="form-control"  placeholder="Enter name">
- 
-                <br>                
+    </div>
+    <div class="box">
+            <label>Course Name</label><br>
+            <input id="fname" name="name" type="text" class="form-control"  placeholder="Enter name">
+    </div>
+                <br>   <div>            
         <input class="btnfamily" type="submit" class="btn btn-info" value="Submit">
         <input class="btnfamily2" type="reset" class="btn btn-warning" value="Reset">
      </div>
+     @if ($errors->any())
+          <div class="alert alert-danger">
+         <script>     alert(" Please Enter Correct Details"); </script>;
+                    
+             </div>
+             @endif
+        <!--error ends-->
  @elseif($layout=='show')
 <div class="container-fluid mt-4">
   <div class="col">
@@ -73,7 +84,7 @@
 
             <div class="form-group">
                 <label>Course Name</label>
-                <input value="{{ $course->CourseName }}" name="CourseName" type="text" class="form-control"  placeholder="Enter the Course name">
+                <input value="{{ $course->name }}" name="name" type="text" class="form-control"  placeholder="Enter the Course name">
             </div>
         
             <input type="submit" class="btn btn-info" value="Update">

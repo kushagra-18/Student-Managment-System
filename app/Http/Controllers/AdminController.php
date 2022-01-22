@@ -2,8 +2,10 @@
 namespace App\Http\Controllers;
 use App\Admin;
 use App\User;
+use DB;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     /**
@@ -12,8 +14,9 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $admins = Admin::paginate(1);  
+    { 
+        $admins = DB::table('admins')
+        ->leftJoin('users', 'admins.adminId', '=', 'users.id')->paginate(2);
  
         return view('admin.index', compact('admins'));  
     }
@@ -34,9 +37,11 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        $validator =Validator::make($request->all(), [
+        $this->validate($request, [
             'Name'=>'required',
-            'Email' => 'required|email|unique',]);
+            'Email' => 'required|email']);
+        $student4 =Auth::User()->name;
+        error_log($student4);
         $admin=new Admin();
         $admin->adminId=$request->input('adminId');
         $admin->Name=$request->input('Name');
@@ -44,14 +49,19 @@ class AdminController extends Controller
         $admin->number=$request->input('number');
         $admin->Address=$request->input('Address');
         $admin->save();
+        $student3 =Auth::User()->name;
+        error_log($student3);
 
-        $user=new User();
+         $user=new User();
+        $user->id=$request->input('adminId');
         $user->name=$request->input('Name');
         $user->email=$request->input('Email');
         $user->password = bcrypt('secret');
         $user->role=3;
         $user->save();
-        return redirect('/admin/home');
+        $student_id =Auth::User()->name;
+        error_log($student_id);
+        return view('admin.home');
     }
     /**
      * Display the specified resource.
@@ -59,9 +69,16 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $user= Auth::user();
+        $students = DB::table('students')
+        ->leftJoin('users', 'students.Sid', '=', 'users.id')
+        ->paginate(2);
+        $details= Admin::find($user);
+        
+        // $details= Admin::find($id);
+        return view('admin.showDetails', compact('user'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -69,10 +86,13 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) 
     {
-        $admin= Admin::find($id);  
-        return view('admin.edit', compact('admin'));
+        $admins = DB::table('admins')
+        ->leftJoin('users', 'admins.adminId', '=', 'users.id')->get();
+ 
+        // $admin= Admin::find($id);  
+        return view('admin.edit', compact('admins'));
     }
     /**
      * Update the specified resource in storage.
@@ -96,7 +116,7 @@ class AdminController extends Controller
         // $user->password = bcrypt('secret');
         // $user->role=0;
         // $user->save();
-       return redirect('/admin/home');
+       return redirect('/home');
     }
     /**
      * Remove the specified resource from storage.
