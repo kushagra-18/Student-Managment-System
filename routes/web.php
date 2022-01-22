@@ -64,18 +64,22 @@ Route::get('/changePassword','HomeController@showChangePasswordForm');
 Route::post('/changePassword','HomeController@changePassword')->name('changePassword');
 
 
-Route::any('/search',function(){
-    $q = Input::get ( 'q' );
-    $student= DB::table('users')
-                ->join('students', function ($join) {
-                    $join->on('users.id', '=', 'students.Sid')
-                        ->where('users.name','LIKE','%'.Input::get ( 'q' ).'%');
-                })
-                ->get();
-            if(count($student) > 0){
-                return view('student.searchResult')->withDetails($student)->withQuery ( $q );}
-            else return view ('student.searchResult')->withMessage('No Details found. Try to search again !');
-    });
+
+Route::get('/search','AdminController@search')->name('searchName');
+
+
+// Route::get('/search',function(){
+//     $q = Input::get ( 'q' );
+//     $student= DB::table('users')
+//                 ->join('students', function ($join) {
+//                     $join->on('users.id', '=', 'students.Sid')
+//                         ->where('users.name','LIKE','%'.Input::get ( 'q' ).'%');
+//                 })
+//                 ->get();
+//             if(count($student) > 0){
+//                 return view('student.searchResult')->withDetails($student)->withQuery ( $q );}
+//             else return view ('student.searchResult')->withMessage('No Details found. Try to search again !');
+//     });
     
     
     Route::any('/searchTeacher',function(){

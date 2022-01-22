@@ -1,7 +1,6 @@
-<form action="/search" method="POST" role="search">
-    {{ csrf_field() }}
+<form action="{{route('searchName')}}" method="GET" role="search">
     <div class="input-group">
-        <input type="text" class="form-control" name="que"
+        <input type="text" class="form-control" name="search" id = "search"
             placeholder="Search users"> <span class="input-group-btn">
             <button type="submit" class="btn btn-default">
                 <span class="glyphicon glyphicon-search"></span>

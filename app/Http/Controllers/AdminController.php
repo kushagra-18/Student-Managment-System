@@ -130,4 +130,16 @@ class AdminController extends Controller
         $admin->delete();  
         return redirect('/home');
     }
+
+    public function search(Request $request){
+
+
+        $search = $request->input('search');
+        //create object of Admin model
+        $admin = new Admin();
+        //call search method of Admin model
+        $student = $admin->search($search);
+        
+        return view('student.searchResult')->withDetails($student)->withQuery ( $search );
+    }
 }
